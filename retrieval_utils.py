@@ -2,11 +2,11 @@ import numpy as np
 import os
 import torch
 from tqdm import tqdm
-from CLIP4Caption.util import get_logger
-from CLIP4Clip.modules.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
-from CLIP4Clip.modules.modeling import CLIP4Clip
-from CLIP4Clip.metrics import compute_metrics, tensor_text_to_video_metrics, tensor_video_to_text_sim
-from CLIP4Clip.modules.optimization import BertAdam
+from <VIDEOCAPTIONINGFOLDER>.util import get_logger
+from <VIDEORETRIEVALFOLDER>.modules.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
+from <VIDEORETRIEVALFOLDER>.modules.modeling import CLIP4Clip
+from <VIDEORETRIEVALFOLDER>.metrics import compute_metrics, tensor_text_to_video_metrics, tensor_video_to_text_sim
+from <VIDEORETRIEVALFOLDER>.modules.optimization import BertAdam
 def gc_to_idx(captions,tokenizer,max_words):
     k=1
     #print(captions)

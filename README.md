@@ -67,28 +67,22 @@ In our paper, we use [CLIP4Caption](https://dl.acm.org/doi/10.1145/3474085.34792
 git clone https://github.com/Sejong-VLI/V2T-CLIP4Caption-Reproduction.git
 ```
 2. Rename the folder as you want
-3. Modify the import library in ```<FOLDERNAME>/modules/modeling.py``` as follows:
+3. Modify the import library in ```<CAPTIONINGFOLDERNAME>/modules/modeling.py``` as follows:
 ```
-from <FOLDERNAME>.modules.until_module import PreTrainedModel, LayerNorm, CrossEn
-from <FOLDERNAME>.modules.module_bert import BertModel, BertConfig
-from <FOLDERNAME>.modules.module_visual import VisualModel, VisualConfig, VisualOnlyMLMHead
-from <FOLDERNAME>.modules.module_decoder import DecoderModel, DecoderConfig
-```
-
-4. Modify the import library in ```<FOLDERNAME>/modules/until_module.py``` as follows:
-```
-from <FOLDERNAME>.modules.until_config import PretrainedConfig
+from <CAPTIONINGFOLDERNAME>.modules.until_module import PreTrainedModel, LayerNorm, CrossEn
+from <CAPTIONINGFOLDERNAME>.modules.module_bert import BertModel, BertConfig
+from <CAPTIONINGFOLDERNAME>.modules.module_visual import VisualModel, VisualConfig, VisualOnlyMLMHead
+from <CAPTIONINGFOLDERNAME>.modules.module_decoder import DecoderModel, DecoderConfig
 ```
 
-5. Modify the import library in ```policy_gradient.py``` as follows:
+4. Modify the import library in ```<CAPTIONINGFOLDERNAME>/modules/until_module.py``` as follows:
 ```
-from <FOLDERNAME>.modules.tokenization import BertTokenizer
+from <CAPTIONINGFOLDERNAME>.modules.until_config import PretrainedConfig
 ```
 
+5. Change ```<CAPTIONINGFOLDERNAME>/dataloaders``` with the provided ```dataloaders``` folder
 
-6. Change ```<FOLDERNAME>/dataloaders``` with the provided ```dataloaders``` folder
-
-**Note** Please replace the ```<FOLDERNAME>``` with the folder name you have chosen. For example, if your folder name is CLIP4Caption then the import library in **policy_gradient.py** will be ```from CLIP4Caption.modules.tokenization import BertTokenizer```
+**Note** Please replace the ```<CAPTIONINGFOLDERNAME>``` with the folder name you have chosen. For example, if your folder name is CLIP4Caption then the import library in **policy_gradient.py** will be ```from CLIP4Caption.modules.tokenization import BertTokenizer```
 
 
 ### Download Video Retrieval
@@ -97,29 +91,39 @@ from <FOLDERNAME>.modules.tokenization import BertTokenizer
 git clone https://github.com/ArrowLuo/CLIP4Clip.git
 ```
 2. Rename the folder as you want
-3. Change ```<FOLDERNAME>/modeling.py``` with the provided ```modeling.py```
-4. Modify the import library in ```<FOLDERNAME>/modules/modeling.py``` as follows:
-```
-from <FOLDERNAME>.modules.until_module import PreTrainedModel, AllGather, CrossEn
-from <FOLDERNAME>.modules.module_cross import CrossModel, CrossConfig, Transformer as TransformerClip
-from <FOLDERNAME>.modules.module_clip import CLIP, convert_weights
-```
-5. Modify the import library in ```<FOLDERNAME>/modules/until_module.py``` as follows:
-```
-from <FOLDERNAME>.modules.until_config import PretrainedConfig
-```
-**Note** Please replace the ```<FOLDERNAME>``` with the folder name you have chosen. For example, if your folder name is CLIP4Clip then the import library in **<FOLDERNAME>/modules/until_module.py** will be ```from CLIP4Clip.modules.until_config import PretrainedConfig```
+3. Change ```<RETRIEVALFOLDERNAME>/modeling.py``` with the provided ```modeling.py```
+4. Change ```<RETRIEVALFOLDERNAME>/tokenization_clip.py``` with the provided ```tokenization_clip.py```
 
+5. Modify the import library in ```<RETRIEVALFOLDERNAME>/modules/until_module.py``` as follows:
+```
+from <RETRIEVALFOLDERNAME>.modules.until_config import PretrainedConfig
+```
+**Note** Please replace the ```<RETRIEVALFOLDERNAME>``` with the folder name you have chosen. For example, if your folder name is CLIP4Clip then the import library in **<RETRIEVALFOLDERNAME>/modules/until_module.py** will be ```from CLIP4Clip.modules.until_config import PretrainedConfig```
+
+### Final Folder Structure
+The folder structure after downloading the video captioning and video retrieval should look as follows:
+```bash
+├── <CAPTIONINGFOLDERNAME>
+├── <RETRIEVALFOLDERNAME>  
+├── dataset
+├── features
+├── pretrained
+├── environment.yml
+├── policy_gradient.py
+├── train.py
+├── converter.py
+├── retrieval_utils.py
+```
 ### Pretraining Video Retrieval
 Download pretrained model from [link](https://drive.google.com/drive/folders/141yGBfxfLwbgzXXKZ74LegeZBy2oooi7?usp=sharing) and put into ./pretrained folder
 
 ### Training the Video Captioning
 1. Initialize our caption generator.
 ```
-mkdir -p ./<FOLDERNAME>/weight
-wget -P ./<FOLDERNAME>/weight https://github.com/microsoft/UniVL/releases/download/v0/univl.pretrained.bin
+mkdir -p ./<CAPTIONINGFOLDERNAME>/weight
+wget -P ./<CAPTIONINGFOLDERNAME>/weight https://github.com/microsoft/UniVL/releases/download/v0/univl.pretrained.bin
 ```
-**Note** Please replace the ```<FOLDERNAME>``` with the folder name you have chosen. For example, if your folder name is CLIP4Caption then the command will be ```mkdir -p ./CLIP4Caption/weight```
+**Note** Please replace the ```<CAPTIONINGFOLDERNAME>``` with the folder name you have chosen. For example, if your video captioning folder name is CLIP4Caption then the command will be ```mkdir -p ./CLIP4Caption/weight```
 
 2. In each train script (.sh), change following parameters based on the specs of your machine and the data location:
     - **N_GPU** = [Total GPU to use]
@@ -131,12 +135,22 @@ wget -P ./<FOLDERNAME>/weight https://github.com/microsoft/UniVL/releases/downlo
     - **MODEL_FILE_RET** = [Pretrain video retrieval checkpoint]
     - **MODEL_FILE** = [Saved video captioning model for evaluation]
 3. Execute the following scripts to start the training process
+4. Run following script:
+```
+python3 converter.py --replace_variable='<CAPTIONINGFOLDERNAME>'
+python3 converter.py --replace_variable='<RETRIEVALFOLDERNAME>' --target_variable='<VIDEORETRIEVALFOLDER>'
+```
 
-##### MSVD
+For example if your **video captioning folder** name is CLIP4Caption then the script will become:
+```
+ python3 converter.py --replace_variable='CLIP4Caption'
+```
+
+##### Training Using MSVD
 ```
 ./freeze_ret_msvd_train.sh 
 ```
-##### MSRVTT
+##### Training Using MSRVTT
 ```
 ./freeze_ret_msrvtt_train.sh  
 ```
@@ -160,15 +174,10 @@ The comparison with the existing methods and also the ablation study of our meth
 | Ours | ViT-B/16 | 48.78 | 31.28 | 65.01 | 60.51 | 17.0
 
 ## Acknowledgements
-Our code is based on https://github.com/huggingface/transformers/tree/v0.4.0 and https://github.com/microsoft/UniVL
+Our code is developed based on https://github.com/microsoft/UniVL, which is also developed based on https://github.com/huggingface/transformers/tree/v0.4.0 and https://github.com/antoine77340/howto100m .
 
 ## Citation
 Please cite our paper in your publications if it helps your research as follows:
 
 
 
-<!-- @equals(formatDateTime(item()?['Date'], 'yyyy-MM-dd'), outputs('Get_response_details')?['body/rcbcaa9cf6fc745cc8f5c1feef5abc0e9'])
-@equals(item()?['Panel Email'], outputs('Get_response_details')?['body/responder'])
-@equals(item()?['Candidate Name'], outputs('Get_response_details')?['body/r28146f95c30a46f1ba8d258ad8de208d'])['body/r28146f95c30a46f1ba8d258ad8de208d'])
-
-@and(equals(formatDateTime(item()?['Date'], 'yyyy-MM-dd'), outputs('Get_response_details')?['body/rcbcaa9cf6fc745cc8f5c1feef5abc0e9']),equals(item()?['Panel Email'], outputs('Get_response_details')?['body/responder']),equals(item()?['Candidate Name'], outputs('Get_response_details')?['body/r28146f95c30a46f1ba8d258ad8de208d'])) -->

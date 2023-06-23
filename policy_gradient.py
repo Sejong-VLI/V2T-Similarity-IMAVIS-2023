@@ -3,7 +3,7 @@ import torch.nn.functional as F
 from typing import Dict, List, Tuple, Iterable
 from pycocoevalcap.cider.cider import Cider
 #from modules.tokenization import BertTokenizer
-from CLIP4Caption.modules.tokenization import BertTokenizer
+from <VIDEOCAPTIONINGFOLDER>.modules.tokenization import BertTokenizer
 
 def calculate_cider(gt_dict: Dict[int, List], prediction_dict: Dict[int, List]) -> Tuple[float, Iterable]:
     """Calculate CIDer score

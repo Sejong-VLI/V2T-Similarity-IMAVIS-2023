@@ -15,14 +15,14 @@ import time
 import argparse
 from tqdm import tqdm
 
-from CLIP4Caption.modules.tokenization import BertTokenizer
-from CLIP4Caption.modules.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
-from CLIP4Caption.modules.modeling import CaptionGenerator
-from CLIP4Caption.modules.optimization import BertAdam
-from CLIP4Caption.modules.beam import Beam
+from <VIDEOCAPTIONINGFOLDER>.modules.tokenization import BertTokenizer
+from <VIDEOCAPTIONINGFOLDER>.modules.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
+from <VIDEOCAPTIONINGFOLDER>.modules.modeling import CaptionGenerator
+from <VIDEOCAPTIONINGFOLDER>.modules.optimization import BertAdam
+from <VIDEOCAPTIONINGFOLDER>.modules.beam import Beam
 from torch.utils.data import DataLoader
-#from CLIP4Caption.dataloaders.dataloader_msrvtt_caption import MSRVTT_Caption_DataLoader
-from CLIP4Caption.util import get_logger
+#from <VIDEOCAPTIONINGFOLDER>.dataloaders.dataloader_msrvtt_caption import MSRVTT_Caption_DataLoader
+from <VIDEOCAPTIONINGFOLDER>.feature_extractor.util import get_logger
 from tqdm import tqdm
 
 from pycocoevalcap.bleu.bleu import Bleu
@@ -32,13 +32,13 @@ from pycocoevalcap.meteor.meteor import Meteor
 from pycocoevalcap.spice.spice import Spice
 
 # retrieval
-from CLIP4Clip.modules.tokenization_clip import SimpleTokenizer as ClipTokenizer
-from CLIP4Clip.modules.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
-from CLIP4Clip.modules.modeling import CLIP4Clip
-from CLIP4Clip.modules.optimization import BertAdam
-from CLIP4Clip.metrics import compute_metrics, tensor_text_to_video_metrics, tensor_video_to_text_sim
+from <VIDEORETRIEVALFOLDER>.modules.tokenization_clip import SimpleTokenizer as ClipTokenizer
+from <VIDEORETRIEVALFOLDER>.modules.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
+from <VIDEORETRIEVALFOLDER>.modules.modeling import <VIDEORETRIEVALFOLDER>
+from <VIDEORETRIEVALFOLDER>.modules.optimization import BertAdam
+from <VIDEORETRIEVALFOLDER>.metrics import compute_metrics, tensor_text_to_video_metrics, tensor_video_to_text_sim
 
-from CLIP4Caption.dataloaders.data_dataloader import DATALOADER_DICT
+from <VIDEOCAPTIONINGFOLDER>.dataloaders.data_dataloader import DATALOADER_DICT
 from retrieval_utils import *
 torch.distributed.init_process_group(backend="nccl")
 
@@ -341,7 +341,7 @@ def train_epoch(epoch, args, model, retrieval,train_dataloader, tokenizer,clipto
 
         # pairs_masked_text, pairs_token_labels, masked_video, video_labels_index,
         # input_mask, segment_ids
-        # the above data are unnecessary to train clip4caption
+        # the above data are unnecessary to train <VIDEOCAPTIONINGFOLDER>
         # input_ids (BATCHSIZE,1,MAX WORDS)
         decoder_scores = model(video, video_mask,
                      input_caption_ids=pairs_input_caption_ids, decoder_mask=pairs_decoder_mask)
