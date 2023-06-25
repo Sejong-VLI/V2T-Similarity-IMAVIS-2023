@@ -137,7 +137,7 @@ wget -P ./<VIDEOCAPTIONINGFOLDER>/weight https://github.com/microsoft/UniVL/rele
 3. Execute the following scripts to start the training process
 4. Run following script:
 ```
-python3 converter.py --replace_variable='<VIDEOCAPTIONINGFOLDER> --target_variable='<VIDEOCAPTIONINGFOLDER>'
+python3 converter.py --replace_variable='<VIDEOCAPTIONINGFOLDER>' --target_variable='<VIDEOCAPTIONINGFOLDER>'
 python3 converter.py --replace_variable='<VIDEORETRIEVALFOLDER>' --target_variable='<VIDEORETRIEVALFOLDER>'
 ```
 
