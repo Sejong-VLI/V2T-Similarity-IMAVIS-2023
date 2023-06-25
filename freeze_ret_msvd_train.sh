@@ -8,7 +8,7 @@ LEARNING_RATE=(1e-5)
 MODEL_FILE=CLIP4Caption/weight/univl.pretrained.bin
 MODEL_FILE_RET=./pretrained/MSVD/pytorch_model.bin.0
 
-LAMDA=(0.0)
+LAMDA=(1.0)
 GAMMA_RL=(0.5)
 
 
@@ -26,7 +26,7 @@ for elem in "${hid_layers[@]}"; do
     do
         python -m torch.distributed.launch --nproc_per_node=2 \
         train.py --do_train --num_thread_reader=8\
-        --epochs=50 --batch_size=256 --n_display=100 --gradient_accumulation_steps 1\
+        --epochs=100 --batch_size=256 --n_display=100 --gradient_accumulation_steps 1\
         --data_path ${DATA_PATH} --features_path ${FEATURES_PATH} --patience 150 \
         --output_dir ${OUTPUT_ROOT}/vit16_ckpt_${DATATYPE}_reinforce${gamma}_rw${ret_weight}_lr_${lr}_vl${hid_layer[0]}_dl${hid_layer[1]}_${clip}_seed${seed} \
         --output_dir_retrieval ${OUTPUT_ROOT}/ckpt_msvd_retrieval2_lr${LEARNING_RATE}_vl${hid_layer[0]}_dl${hid_layer[1]} \
