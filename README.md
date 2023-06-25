@@ -143,7 +143,7 @@ python3 converter.py --replace_variable='<VIDEORETRIEVALFOLDER>' --target_variab
 
 For example if your **video captioning folder** name is CLIP4Caption then the script will become:
 ```
- python3 converter.py --replace_variable='CLIP4Caption' --target_variable='<VIDEOCAPTIONINGFOLDER>
+ python3 converter.py --replace_variable='CLIP4Caption' --target_variable='<VIDEOCAPTIONINGFOLDER>'
 ```
 
 ##### Training Using MSVD
