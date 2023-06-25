@@ -21,7 +21,7 @@ from <VIDEOCAPTIONINGFOLDER>.modules.modeling import CaptionGenerator
 from <VIDEOCAPTIONINGFOLDER>.modules.optimization import BertAdam
 from <VIDEOCAPTIONINGFOLDER>.modules.beam import Beam
 from torch.utils.data import DataLoader
-#from <VIDEOCAPTIONINGFOLDER>.dataloaders.dataloader_msrvtt_caption import MSRVTT_Caption_DataLoader
+
 from <VIDEOCAPTIONINGFOLDER>.feature_extractor.util import get_logger
 from tqdm import tqdm
 
@@ -36,6 +36,7 @@ from <VIDEORETRIEVALFOLDER>.modules.tokenization_clip import SimpleTokenizer as 
 from <VIDEORETRIEVALFOLDER>.modules.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
 from <VIDEORETRIEVALFOLDER>.modules.modeling import <VIDEORETRIEVALFOLDER>
 from <VIDEORETRIEVALFOLDER>.modules.optimization import BertAdam
+
 from <VIDEORETRIEVALFOLDER>.metrics import compute_metrics, tensor_text_to_video_metrics, tensor_video_to_text_sim
 
 from <VIDEOCAPTIONINGFOLDER>.dataloaders.data_dataloader import DATALOADER_DICT
@@ -68,7 +69,7 @@ def get_args(description='CaptionGenerator'):
     parser.add_argument('--lr_decay', type=float, default=0.9, help='Learning rate exp epoch decay')
     parser.add_argument('--n_display', type=int, default=100, help='Information display frequence')
     parser.add_argument('--video_dim', type=int, default=1024, help='video feature dimension')
-    parser.add_argument('--seed', type=int, default=321, help='random seed')
+    parser.add_argument('--seed', type=int, default=1969, help='random seed')
     parser.add_argument('--max_words', type=int, default=20, help='')
     parser.add_argument('--max_frames', type=int, default=100, help='')
     parser.add_argument('--feature_framerate', type=int, default=1, help='')
@@ -364,7 +365,6 @@ def train_epoch(epoch, args, model, retrieval,train_dataloader, tokenizer,clipto
 
                 
 
-            #logger.info('Add with retrieval loss')
 
                 cider_scores,cider_scores_baseline,generated_caption,greedy_caption,reward_mask,log_prob= calculate_reward(decoder_scores, pairs_output_caption_ids, tokenizer, args.reward_multiplier,True)
         
@@ -375,7 +375,7 @@ def train_epoch(epoch, args, model, retrieval,train_dataloader, tokenizer,clipto
             
 
                 with torch.no_grad():
-                    #relevance_labels = None
+
                     
                         loss_gt_retrieval,relevance_labels = retrieval(input_ids, segment_ids, input_mask, video, video_mask)
                         loss_s_retrieval,gs_labels = retrieval(generated_input_ids.to(device), generated_segment_ids.to(device), generated_input_mask.to(device), video, video_mask,True,relevance_labels)
