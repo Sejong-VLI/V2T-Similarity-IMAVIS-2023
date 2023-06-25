@@ -2,7 +2,7 @@ import numpy as np
 import os
 import torch
 from tqdm import tqdm
-from <VIDEOCAPTIONINGFOLDER>.util import get_logger
+from <VIDEOCAPTIONINGFOLDER>.feature_extractor.util import get_logger
 from <VIDEORETRIEVALFOLDER>.modules.file_utils import PYTORCH_PRETRAINED_BERT_CACHE
 from <VIDEORETRIEVALFOLDER>.modules.modeling import CLIP4Clip
 from <VIDEORETRIEVALFOLDER>.metrics import compute_metrics, tensor_text_to_video_metrics, tensor_video_to_text_sim
