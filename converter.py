@@ -6,7 +6,7 @@ def get_args(description='VariableConverter'):
     parser.add_argument("--root_path",  type=str, default='./', help='path to the root folder')
     parser.add_argument("--replace_variable", type=str, default=None,help='Name of replacement variable')
 
-    parser.add_argument("--target_variable",  type=str, default="<VIDEOCAPTIONINGFOLDER>",help='Target variable of name to replace')
+    parser.add_argument("--target_variable",  type=str, default="None",help='Target variable of name to replace')
 
 
     args = parser.parse_args()
