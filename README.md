@@ -67,22 +67,22 @@ In our paper, we use [CLIP4Caption](https://dl.acm.org/doi/10.1145/3474085.34792
 git clone https://github.com/Sejong-VLI/V2T-CLIP4Caption-Reproduction.git
 ```
 2. Rename the folder as you want
-3. Modify the import library in ```<CAPTIONINGFOLDERNAME>/modules/modeling.py``` as follows:
+3. Modify the import library in ```<VIDEOCAPTIONINGFOLDER>/modules/modeling.py``` as follows:
 ```
-from <CAPTIONINGFOLDERNAME>.modules.until_module import PreTrainedModel, LayerNorm, CrossEn
-from <CAPTIONINGFOLDERNAME>.modules.module_bert import BertModel, BertConfig
-from <CAPTIONINGFOLDERNAME>.modules.module_visual import VisualModel, VisualConfig, VisualOnlyMLMHead
-from <CAPTIONINGFOLDERNAME>.modules.module_decoder import DecoderModel, DecoderConfig
-```
-
-4. Modify the import library in ```<CAPTIONINGFOLDERNAME>/modules/until_module.py``` as follows:
-```
-from <CAPTIONINGFOLDERNAME>.modules.until_config import PretrainedConfig
+from <VIDEOCAPTIONINGFOLDER>.modules.until_module import PreTrainedModel, LayerNorm, CrossEn
+from <VIDEOCAPTIONINGFOLDER>.modules.module_bert import BertModel, BertConfig
+from <VIDEOCAPTIONINGFOLDER>.modules.module_visual import VisualModel, VisualConfig, VisualOnlyMLMHead
+from <VIDEOCAPTIONINGFOLDER>.modules.module_decoder import DecoderModel, DecoderConfig
 ```
 
-5. Change ```<CAPTIONINGFOLDERNAME>/dataloaders``` with the provided ```dataloaders``` folder
+4. Modify the import library in ```<VIDEOCAPTIONINGFOLDER>/modules/until_module.py``` as follows:
+```
+from <VIDEOCAPTIONINGFOLDER>.modules.until_config import PretrainedConfig
+```
 
-**Note** Please replace the ```<CAPTIONINGFOLDERNAME>``` with the folder name you have chosen. For example, if your folder name is CLIP4Caption then the import library in **policy_gradient.py** will be ```from CLIP4Caption.modules.tokenization import BertTokenizer```
+5. Change ```<VIDEOCAPTIONINGFOLDER>/dataloaders``` with the provided ```dataloaders``` folder
+
+**Note** Please replace the ```<VIDEOCAPTIONINGFOLDER>``` with the folder name you have chosen. For example, if your folder name is CLIP4Caption then the import library in **policy_gradient.py** will be ```from CLIP4Caption.modules.tokenization import BertTokenizer```
 
 
 ### Download Video Retrieval
@@ -91,20 +91,20 @@ from <CAPTIONINGFOLDERNAME>.modules.until_config import PretrainedConfig
 git clone https://github.com/ArrowLuo/CLIP4Clip.git
 ```
 2. Rename the folder as you want
-3. Change ```<RETRIEVALFOLDERNAME>/modeling.py``` with the provided ```modeling.py```
-4. Change ```<RETRIEVALFOLDERNAME>/tokenization_clip.py``` with the provided ```tokenization_clip.py```
+3. Change ```<VIDEORETRIEVALFOLDER>/modeling.py``` with the provided ```modeling.py```
+4. Change ```<VIDEORETRIEVALFOLDER>/tokenization_clip.py``` with the provided ```tokenization_clip.py```
 
-5. Modify the import library in ```<RETRIEVALFOLDERNAME>/modules/until_module.py``` as follows:
+5. Modify the import library in ```<VIDEORETRIEVALFOLDER>/modules/until_module.py``` as follows:
 ```
-from <RETRIEVALFOLDERNAME>.modules.until_config import PretrainedConfig
+from <VIDEORETRIEVALFOLDER>.modules.until_config import PretrainedConfig
 ```
-**Note** Please replace the ```<RETRIEVALFOLDERNAME>``` with the folder name you have chosen. For example, if your folder name is CLIP4Clip then the import library in **<RETRIEVALFOLDERNAME>/modules/until_module.py** will be ```from CLIP4Clip.modules.until_config import PretrainedConfig```
+**Note** Please replace the ```<VIDEORETRIEVALFOLDER>``` with the folder name you have chosen. For example, if your folder name is CLIP4Clip then the import library in **<VIDEORETRIEVALFOLDER>/modules/until_module.py** will be ```from CLIP4Clip.modules.until_config import PretrainedConfig```
 
 ### Final Folder Structure
 The folder structure after downloading the video captioning and video retrieval should look as follows:
 ```bash
-├── <CAPTIONINGFOLDERNAME>
-├── <RETRIEVALFOLDERNAME>  
+├── <VIDEOCAPTIONINGFOLDER>
+├── <VIDEORETRIEVALFOLDER>  
 ├── dataset
 ├── features
 ├── pretrained
@@ -120,10 +120,10 @@ Download pretrained model from [link](https://drive.google.com/drive/folders/141
 ### Training the Video Captioning
 1. Initialize our caption generator.
 ```
-mkdir -p ./<CAPTIONINGFOLDERNAME>/weight
-wget -P ./<CAPTIONINGFOLDERNAME>/weight https://github.com/microsoft/UniVL/releases/download/v0/univl.pretrained.bin
+mkdir -p ./<VIDEOCAPTIONINGFOLDER>/weight
+wget -P ./<VIDEOCAPTIONINGFOLDER>/weight https://github.com/microsoft/UniVL/releases/download/v0/univl.pretrained.bin
 ```
-**Note** Please replace the ```<CAPTIONINGFOLDERNAME>``` with the folder name you have chosen. For example, if your video captioning folder name is CLIP4Caption then the command will be ```mkdir -p ./CLIP4Caption/weight```
+**Note** Please replace the ```<VIDEOCAPTIONINGFOLDER>``` with the folder name you have chosen. For example, if your video captioning folder name is CLIP4Caption then the command will be ```mkdir -p ./CLIP4Caption/weight```
 
 2. In each train script (.sh), change following parameters based on the specs of your machine and the data location:
     - **N_GPU** = [Total GPU to use]
@@ -137,13 +137,13 @@ wget -P ./<CAPTIONINGFOLDERNAME>/weight https://github.com/microsoft/UniVL/relea
 3. Execute the following scripts to start the training process
 4. Run following script:
 ```
-python3 converter.py --replace_variable='<CAPTIONINGFOLDERNAME>'
-python3 converter.py --replace_variable='<RETRIEVALFOLDERNAME>' --target_variable='<VIDEORETRIEVALFOLDER>'
+python3 converter.py --replace_variable='<VIDEOCAPTIONINGFOLDER> --target_variable='<VIDEOCAPTIONINGFOLDER>'
+python3 converter.py --replace_variable='<VIDEORETRIEVALFOLDER>' --target_variable='<VIDEORETRIEVALFOLDER>'
 ```
 
 For example if your **video captioning folder** name is CLIP4Caption then the script will become:
 ```
- python3 converter.py --replace_variable='CLIP4Caption'
+ python3 converter.py --replace_variable='CLIP4Caption' --target_variable='<VIDEOCAPTIONINGFOLDER>
 ```
 
 ##### Training Using MSVD
