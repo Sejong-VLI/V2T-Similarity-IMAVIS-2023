@@ -1,4 +1,9 @@
+# Setup
 DATATYPE=msrvtt
+N_GPU=2
+N_THREAD=4
+
+
 DATA_PATH=./dataset/MSRVTT/MSRVTT_data.json
 FEATURES_PATH=./features/MSRVTT_Clip4Clip_features_vit16.pickle
 INIT_MODEL=CLIP4Caption/weight/univl.pretrained.bin
@@ -25,8 +30,8 @@ for elem in "${hid_layers[@]}"; do
   do
     for ret_weight in "${LAMDA[@]}"
     do
-        python -m torch.distributed.launch --nproc_per_node=2 \
-        train.py --do_train --num_thread_reader=8\
+        python -m torch.distributed.launch --nproc_per_node=${N_GPU} \
+        train.py --do_train --num_thread_reader=${N_THREAD}\
         --epochs=100 --batch_size=256 --n_display=100 --gradient_accumulation_steps 1\
         --data_path ${DATA_PATH} --features_path ${FEATURES_PATH} --patience 150 \
         --output_dir ${OUTPUT_ROOT}/ckpt_${DATATYPE}_reinforce${gamma}_rw${ret_weight}_lr_${lr}_vl${hid_layer[0]}_dl${hid_layer[1]}_seed${seed} \

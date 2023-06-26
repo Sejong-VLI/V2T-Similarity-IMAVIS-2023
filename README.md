@@ -1,6 +1,6 @@
 # V2T-Similarity-IMAVIS-2023
 ## Description
-This is the implementation of our paper entitled [**"Improving distinctiveness in video captioning with text-video similarity"**]().
+This is the implementation of our paper entitled [**"Improving distinctiveness in video captioning with text-video similarity"**](https://www.sciencedirect.com/science/article/pii/S0262885623001026).
 
 Our approach enhances the distinctiveness of video captioning by integrating video retrieval into the training process. We calculate similarity scores between the generated text and videos, incorporating them into the training loss. Additionally, we use reference scores, representing similarity between ground truth sentences and videos, to scale the training loss. This guides the model to generate sentences that closely match the desired level of distinctiveness indicated by the reference scores.
 
@@ -53,8 +53,8 @@ Raw videos can be downloaded from this [link](https://github.com/VisionLearningG
 Raw videos can be downloaded from this [link](https://www.cs.utexas.edu/users/ml/clamp/videoDescription/).
 
 ## Download Extracted Features
-1. Download the extracted features from [link](https://drive.google.com/drive/folders/1RxJoUlBffWpdsOJJI8SfXIIRJMxZvUCb?usp=sharing)
-2. Put the extracted features into ./features folder
+1. Download the extracted features from [link](https://drive.google.com/drive/folders/1RxJoUlBffWpdsOJJI8SfXIIRJMxZvUCb?usp=sharing).
+2. Put the extracted features into ./features folder.
 
 
 
@@ -62,11 +62,11 @@ Raw videos can be downloaded from this [link](https://www.cs.utexas.edu/users/ml
 In our paper, we use [CLIP4Caption](https://dl.acm.org/doi/10.1145/3474085.3479207) and [CLIP4Clip](https://arxiv.org/abs/2104.08860) as our video captioning and video retrieval, respectively. 
 
 ### Download Video Captioning
-1. Clone our implementation of CLIP4Caption to the root folder
+1. Clone our implementation of CLIP4Caption to the root folder.
 ```
 git clone https://github.com/Sejong-VLI/V2T-CLIP4Caption-Reproduction.git
 ```
-2. Rename the folder as you want
+2. Rename the folder as you want.
 3. Modify the import library in ```<VIDEOCAPTIONINGFOLDER>/modules/modeling.py``` as follows:
 ```
 from <VIDEOCAPTIONINGFOLDER>.modules.until_module import PreTrainedModel, LayerNorm, CrossEn
@@ -80,25 +80,25 @@ from <VIDEOCAPTIONINGFOLDER>.modules.module_decoder import DecoderModel, Decoder
 from <VIDEOCAPTIONINGFOLDER>.modules.until_config import PretrainedConfig
 ```
 
-5. Change ```<VIDEOCAPTIONINGFOLDER>/dataloaders``` with the provided ```dataloaders``` folder
+5. Change ```<VIDEOCAPTIONINGFOLDER>/dataloaders``` with the provided ```dataloaders``` folder.
 
-**Note** Please replace the ```<VIDEOCAPTIONINGFOLDER>``` with the folder name you have chosen. For example, if your folder name is CLIP4Caption then the import library in **policy_gradient.py** will be ```from CLIP4Caption.modules.tokenization import BertTokenizer```
+**Note** Please replace the ```<VIDEOCAPTIONINGFOLDER>``` with the folder name you have chosen. For example, if your folder name is CLIP4Caption then the import library in **policy_gradient.py** will be ```from CLIP4Caption.modules.tokenization import BertTokenizer```.
 
 
 ### Download Video Retrieval
-1. Clone the implementation of CLIP4Clip to the root folder
+1. Clone the implementation of CLIP4Clip to the root folder.
 ```
 git clone https://github.com/ArrowLuo/CLIP4Clip.git
 ```
-2. Rename the folder as you want
-3. Change ```<VIDEORETRIEVALFOLDER>/modules/modeling.py``` with the provided ```modeling.py```
-4. Change ```<VIDEORETRIEVALFOLDER>/modules/tokenization_clip.py``` with the provided ```tokenization_clip.py```
+2. Rename the folder as you want.
+3. Change ```<VIDEORETRIEVALFOLDER>/modules/modeling.py``` with the provided ```modeling.py```.
+4. Change ```<VIDEORETRIEVALFOLDER>/modules/tokenization_clip.py``` with the provided ```tokenization_clip.py```.
 
 5. Modify the import library in ```<VIDEORETRIEVALFOLDER>/modules/until_module.py``` as follows:
 ```
 from <VIDEORETRIEVALFOLDER>.modules.until_config import PretrainedConfig
 ```
-**Note** Please replace the ```<VIDEORETRIEVALFOLDER>``` with the folder name you have chosen. For example, if your folder name is CLIP4Clip then the import library in **<VIDEORETRIEVALFOLDER>/modules/until_module.py** will be ```from CLIP4Clip.modules.until_config import PretrainedConfig```
+**Note** Please replace the ```<VIDEORETRIEVALFOLDER>``` with the folder name you have chosen. For example, if your folder name is CLIP4Clip then the import library in **<VIDEORETRIEVALFOLDER>/modules/until_module.py** will be ```from CLIP4Clip.modules.until_config import PretrainedConfig```.
 
 ### Final Folder Structure
 The folder structure after downloading the video captioning and video retrieval should look as follows:
@@ -115,7 +115,7 @@ The folder structure after downloading the video captioning and video retrieval 
 ├── retrieval_utils.py
 ```
 ### Pretraining Video Retrieval
-Download pretrained model from [link](https://drive.google.com/drive/folders/141yGBfxfLwbgzXXKZ74LegeZBy2oooi7?usp=sharing) and put into ./pretrained folder
+Download pretrained model from [link](https://drive.google.com/drive/folders/141yGBfxfLwbgzXXKZ74LegeZBy2oooi7?usp=sharing) and put into ./pretrained folder.
 
 ### Training the Video Captioning
 1. Initialize our caption generator.
@@ -123,7 +123,7 @@ Download pretrained model from [link](https://drive.google.com/drive/folders/141
 mkdir -p ./<VIDEOCAPTIONINGFOLDER>/weight
 wget -P ./<VIDEOCAPTIONINGFOLDER>/weight https://github.com/microsoft/UniVL/releases/download/v0/univl.pretrained.bin
 ```
-**Note** Please replace the ```<VIDEOCAPTIONINGFOLDER>``` with the folder name you have chosen. For example, if your video captioning folder name is CLIP4Caption then the command will be ```mkdir -p ./CLIP4Caption/weight```
+**Note** Please replace the ```<VIDEOCAPTIONINGFOLDER>``` with the folder name you have chosen. For example, if your video captioning folder name is CLIP4Caption then the command will be ```mkdir -p ./CLIP4Caption/weight```.
 
 2. In each train script (.sh), change following parameters based on the specs of your machine and the data location:
     - **N_GPU** = [Total GPU to use]
@@ -134,7 +134,7 @@ wget -P ./<VIDEOCAPTIONINGFOLDER>/weight https://github.com/microsoft/UniVL/rele
     - **FEATURES_PATH** = [Generated video features path]
     - **MODEL_FILE_RET** = [Pretrain video retrieval checkpoint]
     - **MODEL_FILE** = [Saved video captioning model for evaluation]
-3. Execute the following scripts to start the training process
+3. Execute the following scripts to start the training process.
 4. Run following script:
 ```
 python3 converter.py --replace_variable='<VIDEOCAPTIONINGFOLDER>' --target_variable='<VIDEOCAPTIONINGFOLDER>'
@@ -178,6 +178,17 @@ Our code is developed based on https://github.com/microsoft/UniVL, which is also
 
 ## Citation
 Please cite our paper in your publications if it helps your research as follows:
-
+```
+@article{VELDA2023104728,
+title = {Improving distinctiveness in video captioning with text-video similarity},
+journal = {Image and Vision Computing},
+pages = {104728},
+year = {2023},
+issn = {0262-8856},
+doi = {https://doi.org/10.1016/j.imavis.2023.104728},
+url = {https://www.sciencedirect.com/science/article/pii/S0262885623001026},
+author = {Vania Velda and Steve Andreas Immanuel and Willy Fitra Hendria and Cheol Jeong}
+}
+```
 
 
