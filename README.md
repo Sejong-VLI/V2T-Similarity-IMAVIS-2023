@@ -91,8 +91,8 @@ from <VIDEOCAPTIONINGFOLDER>.modules.until_config import PretrainedConfig
 git clone https://github.com/ArrowLuo/CLIP4Clip.git
 ```
 2. Rename the folder as you want
-3. Change ```<VIDEORETRIEVALFOLDER>/modeling.py``` with the provided ```modeling.py```
-4. Change ```<VIDEORETRIEVALFOLDER>/tokenization_clip.py``` with the provided ```tokenization_clip.py```
+3. Change ```<VIDEORETRIEVALFOLDER>/modules/modeling.py``` with the provided ```modeling.py```
+4. Change ```<VIDEORETRIEVALFOLDER>/modules/tokenization_clip.py``` with the provided ```tokenization_clip.py```
 
 5. Modify the import library in ```<VIDEORETRIEVALFOLDER>/modules/until_module.py``` as follows:
 ```
