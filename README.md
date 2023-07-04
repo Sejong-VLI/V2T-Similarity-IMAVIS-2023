@@ -52,9 +52,9 @@ Raw videos can be downloaded from this [link](https://github.com/VisionLearningG
 
 Raw videos can be downloaded from this [link](https://www.cs.utexas.edu/users/ml/clamp/videoDescription/).
 
-## Download Extracted Features
-1. Download the extracted features from [link](https://drive.google.com/drive/folders/1RxJoUlBffWpdsOJJI8SfXIIRJMxZvUCb?usp=sharing).
-2. Put the extracted features into ./features folder.
+## Download Extracted Video Features
+1. Download the extracted video features from [link](https://drive.google.com/drive/folders/1RxJoUlBffWpdsOJJI8SfXIIRJMxZvUCb?usp=sharing).
+2. Put the extracted video features into ./features folder.
 
 
 
@@ -80,7 +80,7 @@ from <VIDEOCAPTIONINGFOLDER>.modules.module_decoder import DecoderModel, Decoder
 from <VIDEOCAPTIONINGFOLDER>.modules.until_config import PretrainedConfig
 ```
 
-5. Change ```<VIDEOCAPTIONINGFOLDER>/dataloaders``` with the provided ```dataloaders``` folder.
+5. Replace ```<VIDEOCAPTIONINGFOLDER>/dataloaders``` with the provided ```dataloaders``` folder.
 
 **Note** Please replace the ```<VIDEOCAPTIONINGFOLDER>``` with the folder name you have chosen. For example, if your folder name is CLIP4Caption then the import library in **policy_gradient.py** will be ```from CLIP4Caption.modules.tokenization import BertTokenizer```.
 
@@ -91,8 +91,8 @@ from <VIDEOCAPTIONINGFOLDER>.modules.until_config import PretrainedConfig
 git clone https://github.com/ArrowLuo/CLIP4Clip.git
 ```
 2. Rename the folder as you want.
-3. Change ```<VIDEORETRIEVALFOLDER>/modules/modeling.py``` with the provided ```modeling.py```.
-4. Change ```<VIDEORETRIEVALFOLDER>/modules/tokenization_clip.py``` with the provided ```tokenization_clip.py```.
+3. Replace ```<VIDEORETRIEVALFOLDER>/modules/modeling.py``` with the provided ```modeling.py```.
+4. Replace ```<VIDEORETRIEVALFOLDER>/modules/tokenization_clip.py``` with the provided ```tokenization_clip.py```.
 
 5. Modify the import library in ```<VIDEORETRIEVALFOLDER>/modules/until_module.py``` as follows:
 ```
@@ -169,7 +169,7 @@ The comparison with the existing methods and also the ablation study of our meth
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |------------- |
 | Ours | ViT-B/16 | 64.77 | 42.05 | 78.77 | 124.47 | 30.8
 
-#### MSR-VTT
+### MSR-VTT
 
 | Method  | CLIP Model | BLEU@4 | METEOR | ROUGE-L | CIDEr | R@1 |
 | ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |------------- |
