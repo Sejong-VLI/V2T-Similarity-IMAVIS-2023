@@ -58,10 +58,10 @@ Raw videos can be downloaded from this [link](https://www.cs.utexas.edu/users/ml
 
 
 
-## Training
+## Prepare the Video Captioning Model and the Video Retrieval Model
 In our paper, we use [CLIP4Caption](https://dl.acm.org/doi/10.1145/3474085.3479207) and [CLIP4Clip](https://arxiv.org/abs/2104.08860) as our video captioning and video retrieval, respectively. 
 
-### Download Video Captioning
+### Download CLIP4Caption
 1. Clone our implementation of CLIP4Caption to the root folder.
 ```
 git clone https://github.com/Sejong-VLI/V2T-CLIP4Caption-Reproduction.git
@@ -85,7 +85,7 @@ from <VIDEOCAPTIONINGFOLDER>.modules.until_config import PretrainedConfig
 **Note** Please replace the ```<VIDEOCAPTIONINGFOLDER>``` with the folder name you have chosen. For example, if your folder name is CLIP4Caption then the import library in **policy_gradient.py** will be ```from CLIP4Caption.modules.tokenization import BertTokenizer```.
 
 
-### Download Video Retrieval
+### Download CLIP4Clip
 1. Clone the implementation of CLIP4Clip to the root folder.
 ```
 git clone https://github.com/ArrowLuo/CLIP4Clip.git
@@ -114,11 +114,11 @@ The folder structure after downloading the video captioning and video retrieval 
 ├── converter.py
 ├── retrieval_utils.py
 ```
-### Pretraining Video Retrieval
+### Download Pretrained CLIP4Clip
 Download pretrained model from [link](https://drive.google.com/drive/folders/141yGBfxfLwbgzXXKZ74LegeZBy2oooi7?usp=sharing) and put into ./pretrained folder.
 
-### Training the Video Captioning
-1. Initialize our caption generator.
+## Training
+1. Initialize our CLIP4Caption.
 ```
 mkdir -p ./<VIDEOCAPTIONINGFOLDER>/weight
 wget -P ./<VIDEOCAPTIONINGFOLDER>/weight https://github.com/microsoft/UniVL/releases/download/v0/univl.pretrained.bin
@@ -146,12 +146,12 @@ For example if your **video captioning folder** name is CLIP4Caption then the sc
  python3 converter.py --replace_variable='CLIP4Caption' --target_variable='<VIDEOCAPTIONINGFOLDER>'
 ```
 
-##### Training Using MSVD
+##### Train Using MSVD
 ```
 cd scripts/
 ./msvd_train.sh 
 ```
-##### Training Using MSRVTT
+##### Train Using MSRVTT
 ```
 cd scripts/
 ./msrvtt_train.sh  
@@ -181,15 +181,14 @@ Our code is developed based on https://github.com/microsoft/UniVL, which is also
 ## Citation
 Please cite our paper in your publications if it helps your research as follows:
 ```
-@article{VELDA2023104728,
-title = {Improving distinctiveness in video captioning with text-video similarity},
-journal = {Image and Vision Computing},
-pages = {104728},
-year = {2023},
-issn = {0262-8856},
-doi = {https://doi.org/10.1016/j.imavis.2023.104728},
-url = {https://www.sciencedirect.com/science/article/pii/S0262885623001026},
-author = {Vania Velda and Steve Andreas Immanuel and Willy Fitra Hendria and Cheol Jeong}
+@article{Velda2023,
+	title        = {Improving distinctiveness in video captioning with text-video similarity},
+	author       = {V. Velda and S. A. Immanuel and W. F. Hendria and C. Jeong},
+	year         = {2023},
+	month        = {aug},
+	journal      = {Image and Vision Computing},
+	volume       = {136},
+	pages        = {104728}
 }
 ```
 
