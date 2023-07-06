@@ -184,11 +184,11 @@ Please cite our paper in your publications if it helps your research as follows:
 @article{Velda2023,
 	title        = {Improving distinctiveness in video captioning with text-video similarity},
 	author       = {V. Velda and S. A. Immanuel and W. F. Hendria and C. Jeong},
-	year         = {2023},
-	month        = {aug},
 	journal      = {Image and Vision Computing},
 	volume       = {136},
-	pages        = {104728}
+	pages        = {104728},
+    month        = {aug},
+    year         = {2023}
 }
 ```
 
