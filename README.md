@@ -187,8 +187,8 @@ Please cite our paper in your publications if it helps your research as follows:
 	journal      = {Image and Vision Computing},
 	volume       = {136},
 	pages        = {104728},
-    month        = {aug},
-    year         = {2023}
+    	month        = aug,
+    	year         = {2023}
 }
 ```
 
